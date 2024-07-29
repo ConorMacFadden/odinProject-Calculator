@@ -1,0 +1,28 @@
+body {
+    background-color: #051a0b;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculatorFrame {
+    flex: 1 1 atuo;
+    height: 80vh;
+    width:800px;
+    background-color: dimgray;
+}
+
+.footer {
+    flex: 0 0 10vh;
+    background-color: black;
+}
