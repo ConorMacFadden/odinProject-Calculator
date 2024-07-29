@@ -19,10 +19,33 @@ body {
     flex: 1 1 atuo;
     height: 80vh;
     width:800px;
+    background-color: black;
+    border-radius: 15px;
+}
+
+.screenFrame {
+    flex: 1 1 atuo;
+    height: 10vh;
+    margin: 30px;
     background-color: dimgray;
 }
 
 .footer {
-    flex: 0 0 10vh;
-    background-color: black;
+    flex: 0 0 60px;
+    background-color: #020804;
+}
+
+.buttonFrame {
+    display: flex;
+    height: 600px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.key {
+    margin: 2.5%;
+    flex: 0 0 20%;
+    background-color: rgb(243, 246, 234);
+    height: 50px;
+    width: 50px;
 }

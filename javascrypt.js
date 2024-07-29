@@ -30,3 +30,21 @@ function operate(num1, num2, operator) {
             return divide(num1, num2);
     }
 }
+
+const buttons = [
+   'Clr','/', '*', '-',
+    '7', '8', '9', '+',
+    '4', '5', '6', 'e',
+    '1', '2', '3', '=',
+    '0', 'e', '.', 'e'
+]
+
+const buttonFrame = document.querySelector('.buttonFrame');
+
+buttons.forEach(element => createKey(element));
+
+function createKey(keyText) {
+    newButton = document.createElement('div');
+    newButton.classList.add('key');
+    buttonFrame.appendChild(newButton);
+}
