@@ -17,8 +17,8 @@ body {
 
 .calculatorFrame {
     flex: 1 1 atuo;
-    height: 80vh;
-    width:800px;
+    height: auto;
+    width:auto;
     background-color: black;
     border-radius: 15px;
 }
@@ -37,15 +37,21 @@ body {
 
 .buttonFrame {
     display: flex;
-    height: 600px;
+    max-height: 600px;
+    aspect-ratio: 4/5;
+    margin: 30px;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
+.keyContainer {
+    margin: 0;
+    flex: 0 0 25%;
+    aspect-ratio: 1/1;
+    display: flex;
+}
+
 .key {
-    margin: 2.5%;
-    flex: 0 0 20%;
-    background-color: rgb(243, 246, 234);
-    height: 50px;
-    width: 50px;
+    flex:1;
+    margin: 2%;
 }

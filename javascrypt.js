@@ -44,7 +44,20 @@ const buttonFrame = document.querySelector('.buttonFrame');
 buttons.forEach(element => createKey(element));
 
 function createKey(keyText) {
-    newButton = document.createElement('div');
-    newButton.classList.add('key');
-    buttonFrame.appendChild(newButton);
+    newButtonContainer = document.createElement('div')
+    newButtonContainer.classList.add('keyContainer');
+
+    if (keyText != 'e') { 
+        newButton = document.createElement('button');
+        newButton.classList.add('key');
+        newButton.textContent = keyText;
+        if (keyText == '+' || keyText == '=') {
+            newButton.style.height = '196%'
+            newButton.style.marginBottom = '-98%';
+        }
+        newButtonContainer.appendChild(newButton)
+        
+    }
+    buttonFrame.appendChild(newButtonContainer);
 }
+
