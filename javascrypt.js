@@ -55,6 +55,10 @@ function createKey(keyText) {
             newButton.style.height = '196%'
             newButton.style.marginBottom = '-98%';
         }
+        if (keyText == '0') {
+            newButton.style.width = '196%';
+            newButton.style.marginRight = '-98%';
+        }
         newButtonContainer.appendChild(newButton)
         
     }

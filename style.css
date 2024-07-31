@@ -52,6 +52,7 @@ body {
 }
 
 .key {
-    flex:1;
+    flex: 1;
     margin: 2%;
+    background-color: honeydew;
 }
