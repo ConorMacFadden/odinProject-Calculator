@@ -108,11 +108,11 @@ function evaluate() {
 function parseNumber(char) {
     let currentString = entryLine.textContent;
     // currentInput == 1 ? currentString = num1 : currentString = num2;
-    if (currentString == null) {currentString = char;}
+    currentString == null? currentString = char: currentString += char;
     // check for decimal. If already decimal then don't allow another one.
 
     operator == null ? num1 = currentString : num2 = currentString
-    entryLine.textContent = currentString += char;
+    entryLine.textContent = currentString;
 }
 
 function clear() {
