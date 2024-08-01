@@ -1,6 +1,9 @@
-let num1;
-let num2;
-let operator;
+let num1 = null;
+let num2 = null;
+let operator = null;
+let currentInput = 1;
+
+const entryLine = document.querySelector('.entryLine');
 
 function add(x, y) {
     return x + y;
@@ -18,7 +21,7 @@ function divide(x, y) {
     return x/y;
 }
 
-function operate(num1, num2, operator) {
+function operate() {
     switch(operator) {
         case 'add':
             return add(num1, num2);
@@ -51,13 +54,16 @@ function createKey(keyText) {
         newButton = document.createElement('button');
         newButton.classList.add('key');
         newButton.textContent = keyText;
+        newButton.addEventListener("click",e => parseInput(e.target.textContent));
         if (keyText == '+' || keyText == '=') {
             newButton.style.height = '196%'
             newButton.style.marginBottom = '-98%';
+            newButton.style.zIndex = '10;'
         }
         if (keyText == '0') {
             newButton.style.width = '196%';
             newButton.style.marginRight = '-98%';
+            newButton.style.zIndex = '10;'
         }
         newButtonContainer.appendChild(newButton)
         
@@ -65,3 +71,53 @@ function createKey(keyText) {
     buttonFrame.appendChild(newButtonContainer);
 }
 
+function buttonClicked(butt) {
+    console.log(butt);
+}
+
+function parseInput(char) {
+    switch(char) {
+        case '+':
+            operator = 'add';
+            return;
+        case '-':
+            operator = 'subtract';
+            return;
+        case '*':
+            operator = 'multiply';
+            return;
+        case '/':
+            operator = 'divide';
+            return;
+        case 'Clr':
+            clear();
+            return;
+        case '=':
+            evaluate();
+    }
+
+    // Not an operator so must be number or '.'
+    parseNumber(char)
+}
+
+function evaluate() {
+    // Verify that both numbers and the operator are not null
+
+}
+
+function parseNumber(char) {
+    let currentString = entryLine.textContent;
+    // currentInput == 1 ? currentString = num1 : currentString = num2;
+    if (currentString == null) {currentString = char;}
+    // check for decimal. If already decimal then don't allow another one.
+
+    operator == null ? num1 = currentString : num2 = currentString
+    entryLine.textContent = currentString += char;
+}
+
+function clear() {
+    num1 = null;
+    num2 = null;
+    operator = null;
+    entryLine.textContent = "";
+}

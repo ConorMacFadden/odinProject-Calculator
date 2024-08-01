@@ -16,7 +16,8 @@ body {
 }
 
 .calculatorFrame {
-    flex: 1 1 atuo;
+    flex-grow: 0;
+    flex-shrink: 1;
     height: auto;
     width:auto;
     background-color: black;
@@ -24,10 +25,24 @@ body {
 }
 
 .screenFrame {
-    flex: 1 1 atuo;
-    height: 10vh;
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 20vh;
     margin: 30px;
     background-color: dimgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.history {
+    font-size: 14px;
+    text-align: left;
+}
+
+.entryLine {
+    font-size: 36px;
+    text-align: right;
 }
 
 .footer {
@@ -37,9 +52,11 @@ body {
 
 .buttonFrame {
     display: flex;
+    flex-grow: 1;
     max-height: 600px;
     aspect-ratio: 4/5;
     margin: 30px;
+    min-width: 140px;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -52,7 +69,22 @@ body {
 }
 
 .key {
-    flex: 1;
+    flex: 1 1 80px;
     margin: 2%;
     background-color: honeydew;
+    border-radius: 5%;
+    font-size: large;
+    z-index: 10;
 }
+
+.nanum-gothic-coding-regular {
+    font-family: "Nanum Gothic Coding", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .nanum-gothic-coding-bold {
+    font-family: "Nanum Gothic Coding", monospace;
+    font-weight: 800;
+    font-style: normal;
+  }
