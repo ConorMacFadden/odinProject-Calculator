@@ -140,8 +140,11 @@ function setOperator(operation) {
     // If we have 2 numbers and an operator then perform the operation.
     if (num1 && num2 && operator) {
         evaluate();
+        num1 = prevResult;
+        prevResult = null;
+        justCalculated = false;
     }
-    if (prevResult) {num1 = prevResult; prevResult = null;}
+    // if (prevResult) {num1 = prevResult; prevResult = null;}
     operator = operation;
     num1Field.textContent = num1;
     operatorField.textContent = operator;
@@ -165,6 +168,9 @@ function evaluate() {
     operationHistory = document.createElement('li');
     operationHistory.textContent = `${num1} ${operator} ${num2} = ${result}`;
     history.appendChild(operationHistory);
+    if (history.childElementCount > 6) {
+        history.removeChild(history.firstElementChild);
+    }
     console.log(result);
 
     // Clear the input line
