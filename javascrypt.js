@@ -2,8 +2,13 @@ let num1 = null;
 let num2 = null;
 let operator = null;
 let currentInput = 1;
+let debug = true;
 
 const entryLine = document.querySelector('.entryLine');
+const num1Field = document.querySelector('.num1');
+const operatorField = document.querySelector('.operator');
+const history = document.querySelector('.history');
+const message = document.querySelector('.message');
 
 function add(x, y) {
     return x + y;
@@ -22,14 +27,16 @@ function divide(x, y) {
 }
 
 function operate() {
+
+
     switch(operator) {
-        case 'add':
-            return add(num1, num2);
-        case 'subtract':
+        case '+':
+            return add(Number(num1), Number(num2));
+        case '-':
             return subtract(num1, num2);
-        case 'multiply':
+        case '×':
             return multiply(num1, num2);
-        case 'divide':
+        case '/':
             return divide(num1, num2);
     }
 }
@@ -76,40 +83,104 @@ function buttonClicked(butt) {
 }
 
 function parseInput(char) {
+    message.textContent = "";
     switch(char) {
         case '+':
-            operator = 'add';
+            setOperator('+');
             return;
         case '-':
-            operator = 'subtract';
+            setOperator('-');
             return;
         case '*':
-            operator = 'multiply';
+            setOperator('×');
             return;
         case '/':
-            operator = 'divide';
+            setOperator('/');
             return;
         case 'Clr':
             clear();
             return;
         case '=':
             evaluate();
+            return;
     }
 
     // Not an operator so must be number or '.'
     parseNumber(char)
 }
 
+function setOperator(operation) {
+    // Handle minus
+    if (operation == '-') {
+    // if entryLine is only '-' then clear the -, if empty then set to -.
+        if (entryLine.textContent == '') {entryLine.textContent = '-'; return;}
+        if (entryLine.textContent == '-') { 
+            // If the operator is already - then remove the - from the input.
+            if (operator == '-') {
+                entryLine.textContent = ''; 
+                return;
+            } else {
+                operator = operation;
+                operatorField = operator;
+            }
+        }
+    }
+
+    // If we have 2 numbers and an operator then perform the operation.
+    if (num1 && num2 && operator) {
+        evaluate();
+    }
+
+    operator = operation;
+    num1Field.textContent = num1;
+    operatorField.textContent = operator;
+    
+    entryLine.textContent = "";
+}
+
 function evaluate() {
     // Verify that both numbers and the operator are not null
+    if (!(num1 && num2 && operator)) { return;}
+    if (operator == '/' && num2 == 0) {
+        message.textContent = "Can't divide by 0.";
+        num2 = null;
+        entryLine.textContent = '';
+        return;
+    }
+    let result = operate();
+    entryLine.textContent = result;
+
+    // Create a new history entry
+    operationHistory = document.createElement('li');
+    operationHistory.textContent = `${num1} ${operator} ${num2} = ${result}`;
+    history.appendChild(operationHistory);
+    console.log(result);
+
+    // Clear the input line
+    num1Field.textContent = '';
+    operatorField.textContent = '';
+    num1 = result;
+    num2 = null;
+    operator = null;
 
 }
 
 function parseNumber(char) {
+    // check for decimal. If already decimal then don't allow another one.
+    message.textContent = "";
+    if (entryLine.textContent.includes('.') && char == '.') {
+        message.textContent = "Can't have more than one decimal in a number!";
+        console.log("Can't have more than one decimal");
+        return;
+    }
+
     let currentString = entryLine.textContent;
     // currentInput == 1 ? currentString = num1 : currentString = num2;
     currentString == null? currentString = char: currentString += char;
-    // check for decimal. If already decimal then don't allow another one.
+
+    
+
+
 
     operator == null ? num1 = currentString : num2 = currentString
     entryLine.textContent = currentString;
@@ -120,4 +191,22 @@ function clear() {
     num2 = null;
     operator = null;
     entryLine.textContent = "";
+    num1Field.textContent = "";
+    operatorField.textContent = "";
 }
+
+document.addEventListener('keydown', (e) => {
+    if (e.key == 'Backspace') {entryLine.textContent = entryLine.textContent.substring(0, entryLine.textContent.length -1);}
+    let searchText = e.key;
+    if (searchText == 'Enter') { searchText = '=';}
+    if (searchText == 'Escape') { searchText = 'Clr';}
+    keys = document.querySelectorAll('.key');
+    let targetButton;
+    keys.forEach(key => {if (key.textContent == searchText) { targetButton = key;}});
+    if(targetButton){
+        targetButton.click();
+        e.preventDefault();
+    }
+    if (debug) {console.log(e);}
+});
+

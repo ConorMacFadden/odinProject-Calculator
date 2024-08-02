@@ -33,6 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-width: 480px;
 }
 
 .history {
@@ -42,6 +43,11 @@ body {
 
 .entryLine {
     font-size: 36px;
+    text-align: right;
+}
+
+.inputLine {
+    font-size: 24px;
     text-align: right;
 }
 
