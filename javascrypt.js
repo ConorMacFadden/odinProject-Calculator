@@ -3,6 +3,8 @@ let num2 = null;
 let operator = null;
 let currentInput = 1;
 let debug = true;
+let justCalculated = false;
+let prevResult = null;
 
 const entryLine = document.querySelector('.entryLine');
 const num1Field = document.querySelector('.num1');
@@ -110,6 +112,13 @@ function parseInput(char) {
 }
 
 function setOperator(operation) {
+    if (justCalculated) {
+        justCalculated = false;
+        num1 = prevResult;
+        prevResult = null;
+        num1Field.textContent = num1;
+    }
+
     // Handle minus
     if (operation == '-') {
     // if entryLine is only '-' then clear the -, if empty then set to -.
@@ -126,11 +135,13 @@ function setOperator(operation) {
         }
     }
 
+    if(!num1) {return;}
+
     // If we have 2 numbers and an operator then perform the operation.
     if (num1 && num2 && operator) {
         evaluate();
     }
-
+    if (prevResult) {num1 = prevResult; prevResult = null;}
     operator = operation;
     num1Field.textContent = num1;
     operatorField.textContent = operator;
@@ -159,14 +170,20 @@ function evaluate() {
     // Clear the input line
     num1Field.textContent = '';
     operatorField.textContent = '';
-    num1 = result;
+    num1 = null;
     num2 = null;
     operator = null;
-
+    prevResult = result;
+    justCalculated = true;
 }
 
 function parseNumber(char) {
     // check for decimal. If already decimal then don't allow another one.
+    if (justCalculated) {
+        num1 = prevResult;
+        prevResult = null;
+        entryLine.textContent = ''; 
+        justCalculated = false;}
     message.textContent = "";
     if (entryLine.textContent.includes('.') && char == '.') {
         message.textContent = "Can't have more than one decimal in a number!";
@@ -177,12 +194,11 @@ function parseNumber(char) {
     let currentString = entryLine.textContent;
     // currentInput == 1 ? currentString = num1 : currentString = num2;
     currentString == null? currentString = char: currentString += char;
-
-    
-
-
-
-    operator == null ? num1 = currentString : num2 = currentString
+    if (num1 == null || operator == null) {
+        num1 = currentString
+    } else {
+        num2 = currentString
+    }
     entryLine.textContent = currentString;
 }
 
@@ -194,6 +210,8 @@ function clear() {
     num1 = null;
     num2 = null;
     operator = null;
+    justCalculated = false;
+    prevResult = null;
     entryLine.textContent = "";
     num1Field.textContent = "";
     operatorField.textContent = "";
