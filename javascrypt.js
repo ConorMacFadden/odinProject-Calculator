@@ -187,6 +187,10 @@ function parseNumber(char) {
 }
 
 function clear() {
+    // if already cleared then also clear history
+    if (num1 == null && num2==null && operator==null){
+        history.innerHTML = '';
+    }
     num1 = null;
     num2 = null;
     operator = null;
